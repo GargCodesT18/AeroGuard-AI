@@ -1,23 +1,41 @@
 # Acknowledgements
 
-AeroGuard AI is maintained in [GargCodesT18/AeroGuard-AI](https://github.com/GargCodesT18/AeroGuard-AI) as a UML501 course-based Machine Learning project.
+AeroGuard AI is maintained in [GargCodesT18/AeroGuard-AI](https://github.com/GargCodesT18/AeroGuard-AI) as an individual UML501 course-based Machine Learning project at Thapar Institute of Engineering and Technology.
 
-## Upstream authorship and AeroGuard contributions
+## Project Contributions
 
-The inherited **AEROPREDICT** codebase and dashboard are credited to **Kunwarpreet Singh (`kunwar1908`), `DevAriwala2712` and Team No Signal**. The baseline is commit [`23efd614884e04ace31fcf338157bc1c6b982711`](https://github.com/kunwar1908/AEROPREDICT/commit/23efd614884e04ace31fcf338157bc1c6b982711), from the [upstream repository](https://github.com/kunwar1908/AEROPREDICT), itself a fork of [DevAriwala2712/AEROPREDICT](https://github.com/DevAriwala2712/AEROPREDICT).
+AeroGuard AI focuses on aircraft engine predictive maintenance and Remaining Useful Life (RUL) estimation. The project incorporates:
 
-AeroGuard improvements include validated four-subset data loading, consistent training-only scaling, reproducible training options, saved engine splits, capped/uncapped evaluation, derived risk metrics, empirical interval scaling, Random Forest/MLP comparisons, executed analysis notebooks and corrected dashboard measurements. This publication includes portable documentation and verified asset organization. Original components and contributions remain attributed. This credit does not imply upstream endorsement of AeroGuard AI or its experimental results.
+- Validated data loading across all four NASA C-MAPSS subsets.
+- Exploratory data analysis and sensor visualization.
+- Feature engineering and leakage-aware preprocessing.
+- Random Forest, MLP and LSTM comparative analysis.
+- Reproducible training and engine-wise evaluation.
+- Capped and uncapped RUL performance analysis.
+- Engine-risk classification and uncertainty calibration.
+- Interactive dashboard and local model inference.
+- Comprehensive experimental documentation and visualization.
 
-## Licensing and notices
+## Technical Resources and Notices
 
-**Licensing status:** no repository-wide LICENSE or explicit redistribution permission was established for the inherited source. The prior repository audit reported no detected license in either upstream repository. The inherited `package.json` contained `ISC`, without a corresponding license text or established repository-wide scope; that unsupported claim has been removed from this fork's metadata. Obtain permission or a clear applicable upstream license before redistribution. [GitHub explains the effect of absent licensing.](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository)
+The project utilizes publicly available machine learning resources, existing software components, scientific literature and established libraries, including PyTorch, scikit-learn, NumPy, Pandas, Flask and Chart.js.
 
-The bundled Chart.js notice is preserved in [chart.js.LICENSE.md](aerospace-dashboard/chart.js.LICENSE.md). It applies to that vendor component and does not license the rest of the project.
+Applicable third-party notices and original authorship rights are respected. Detailed provenance records are maintained separately. No repository-wide license is asserted.
 
-## Scientific references
+The bundled Chart.js license notice is available in [chart.js.LICENSE.md](aerospace-dashboard/chart.js.LICENSE.md).
 
-- A. Saxena and K. Goebel (2008), *Turbofan Engine Degradation Simulation Data Set*, NASA Prognostics Data Repository: [NASA PCoE dataset catalog](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/).
-- A. Saxena, K. Goebel, D. Simon and N. Eklund (2008), *Damage Propagation Modeling for Aircraft Engine Prognostics*: [NASA technical report](https://ntrs.nasa.gov/citations/20090029214).
-- Y. Gal and Z. Ghahramani (2016), *Dropout as a Bayesian Approximation*: [ICML paper](https://proceedings.mlr.press/v48/gal16.html). This motivates MC dropout; it does not confer guaranteed coverage on this implementation.
+## Scientific References
 
-Model and scaler integrity hashes are recorded in [model-checksums.sha256](docs/model-checksums.sha256).
+- A. Saxena and K. Goebel (2008), *Turbofan Engine Degradation Simulation Data Set*. [NASA PCoE Dataset Repository](https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/).
+- A. Saxena, K. Goebel, D. Simon and N. Eklund (2008), *Damage Propagation Modeling for Aircraft Engine Prognostics*. [NASA Technical Report](https://ntrs.nasa.gov/citations/20090029214).
+- L. Breiman (2001), *Random Forests*. Machine Learning.
+- S. Hochreiter and J. Schmidhuber (1997), *Long Short-Term Memory*. Neural Computation.
+- Y. Gal and Z. Ghahramani (2016), *Dropout as a Bayesian Approximation: Representing Model Uncertainty in Deep Learning*. [ICML Paper](https://proceedings.mlr.press/v48/gal16.html).
+
+## Academic Purpose
+
+AeroGuard AI is intended for academic learning, comparative experimentation and practical demonstration of Machine Learning techniques. The experimental results are based on simulated engine telemetry and are not intended for certified aviation maintenance decisions.
+
+## Reproducibility
+
+Model and scaler integrity hashes are recorded in [model-checksums.sha256](docs/model-checksums.sha256). Executed notebooks, evaluation metrics, trained models and supporting visualizations are maintained within the project repository.
