@@ -1,0 +1,850 @@
+{
+  "checkpoint": "lstm_rul.pth",
+  "device": "cuda",
+  "seed": 42,
+  "mc_samples": 100,
+  "checkpoint_sha256": "7790875b43228944f8cab17d23ce363ebed44d65b09abc4e9d645a81c0207631",
+  "scaler_sha256": "e741fb378dcce8b89891ad343f5b34d633da1f55989702b85e7ad82f125680f8",
+  "config": {
+    "dataset": "MULTI",
+    "train_datasets": [
+      "FD001",
+      "FD002",
+      "FD003",
+      "FD004"
+    ],
+    "test_datasets": [
+      "FD001",
+      "FD002",
+      "FD003",
+      "FD004"
+    ],
+    "mode": "multi-source",
+    "seq_length": 50,
+    "max_rul": 125,
+    "hidden_size": 64,
+    "num_layers": 2,
+    "dropout": 0.2,
+    "input_size": 24,
+    "feature_columns": [
+      "setting_1",
+      "setting_2",
+      "setting_3",
+      "sensor_1",
+      "sensor_2",
+      "sensor_3",
+      "sensor_4",
+      "sensor_5",
+      "sensor_6",
+      "sensor_7",
+      "sensor_8",
+      "sensor_9",
+      "sensor_10",
+      "sensor_11",
+      "sensor_12",
+      "sensor_13",
+      "sensor_14",
+      "sensor_15",
+      "sensor_16",
+      "sensor_17",
+      "sensor_18",
+      "sensor_19",
+      "sensor_20",
+      "sensor_21"
+    ],
+    "seed": 42,
+    "validation_fraction": 0.2,
+    "validation_ids": [
+      7,
+      15,
+      21,
+      29,
+      30,
+      31,
+      37,
+      45,
+      49,
+      52,
+      56,
+      60,
+      61,
+      62,
+      72,
+      78,
+      84,
+      87,
+      92,
+      97,
+      99,
+      101,
+      108,
+      116,
+      117,
+      121,
+      125,
+      129,
+      132,
+      141,
+      143,
+      148,
+      152,
+      153,
+      155,
+      165,
+      169,
+      172,
+      177,
+      180,
+      181,
+      194,
+      200,
+      205,
+      219,
+      223,
+      225,
+      226,
+      227,
+      232,
+      233,
+      237,
+      244,
+      246,
+      249,
+      257,
+      260,
+      261,
+      262,
+      272,
+      281,
+      300,
+      303,
+      313,
+      316,
+      322,
+      329,
+      332,
+      338,
+      339,
+      344,
+      351,
+      352,
+      357,
+      362,
+      368,
+      369,
+      374,
+      379,
+      384,
+      391,
+      399,
+      403,
+      407,
+      409,
+      414,
+      415,
+      421,
+      424,
+      427,
+      435,
+      436,
+      439,
+      449,
+      455,
+      458,
+      460,
+      466,
+      468,
+      471,
+      473,
+      475,
+      478,
+      483,
+      498,
+      510,
+      514,
+      515,
+      516,
+      525,
+      538,
+      545,
+      546,
+      558,
+      559,
+      561,
+      563,
+      566,
+      568,
+      569,
+      573,
+      579,
+      582,
+      595,
+      602,
+      608,
+      614,
+      619,
+      624,
+      626,
+      641,
+      644,
+      645,
+      664,
+      667,
+      668,
+      669,
+      671,
+      687,
+      692,
+      699,
+      706
+    ],
+    "target_mean": 80.46223449707031,
+    "target_std": 41.93036651611328,
+    "training_options": {
+      "train_datasets": [
+        "FD001",
+        "FD002",
+        "FD003",
+        "FD004"
+      ],
+      "test_datasets": [
+        "FD001",
+        "FD002",
+        "FD003",
+        "FD004"
+      ],
+      "seq_length": 50,
+      "max_rul": 125,
+      "hidden_size": 64,
+      "num_layers": 2,
+      "dropout": 0.2,
+      "batch_size": 256,
+      "epochs": 20,
+      "learning_rate": 0.001,
+      "weight_decay": 1e-05,
+      "validation_fraction": 0.2,
+      "patience": 5,
+      "seed": 42,
+      "require_cuda": true,
+      "validation_only": true,
+      "schedule": true,
+      "clip_grad": 1.0,
+      "standardize_target": true,
+      "mode": "auto"
+    }
+  },
+  "checkpoint_metrics": {
+    "best_epoch": 15,
+    "best_val_rmse": 14.677014313051133,
+    "test_metrics": {},
+    "training_seconds": 164.29145810002228,
+    "cuda_peak_bytes": 194998272,
+    "device": "cuda",
+    "torch_version": "2.11.0+cu128"
+  },
+  "calibration": {
+    "engines": 142,
+    "seed": 43,
+    "mc_samples": 100,
+    "min_std": 1.0,
+    "capped_multiplier": 8.209703110859591,
+    "uncapped_multiplier": 35.68170057782313
+  },
+  "datasets": {
+    "FD001": {
+      "engines": 100,
+      "labels_capped": 11,
+      "capped": {
+        "rmse": 14.387798081252393,
+        "mae": 10.468624534606933,
+        "r2": 0.8710922702982096,
+        "nasa_score": 309.4973242541257,
+        "residual_mean": -3.222090187072754,
+        "residual_std": 14.022370286554963,
+        "residual_quantiles_05_50_95": [
+          -31.22554702758789,
+          -0.9619941711425781,
+          18.178478622436522
+        ],
+        "overprediction_rate": 0.47
+      },
+      "uncapped": {
+        "rmse": 15.769729781933506,
+        "mae": 11.538624534606933,
+        "r2": 0.8559912240071859,
+        "nasa_score": 351.44403933691933,
+        "residual_mean": -4.292090187072754,
+        "residual_std": 15.174397491209803,
+        "residual_quantiles_05_50_95": [
+          -31.29911880493164,
+          -0.9619941711425781,
+          18.178478622436522
+        ],
+        "overprediction_rate": 0.47
+      },
+      "classification": {
+        "Critical": {
+          "precision": 0.9565217391304348,
+          "recall": 0.88,
+          "f1-score": 0.9166666666666666,
+          "support": 25.0
+        },
+        "Warning": {
+          "precision": 0.6666666666666666,
+          "recall": 0.5714285714285714,
+          "f1-score": 0.6153846153846154,
+          "support": 14.0
+        },
+        "Healthy": {
+          "precision": 0.9230769230769231,
+          "recall": 0.9836065573770492,
+          "f1-score": 0.9523809523809523,
+          "support": 61.0
+        },
+        "accuracy": 0.9,
+        "macro avg": {
+          "precision": 0.8487551096246749,
+          "recall": 0.8116783762685401,
+          "f1-score": 0.8281440781440782,
+          "support": 100.0
+        },
+        "weighted avg": {
+          "precision": 0.8955406911928651,
+          "recall": 0.9,
+          "f1-score": 0.8962728937728938,
+          "support": 100.0
+        },
+        "labels": [
+          "Critical",
+          "Warning",
+          "Healthy"
+        ],
+        "confusion_matrix": [
+          [
+            22,
+            3,
+            0
+          ],
+          [
+            1,
+            8,
+            5
+          ],
+          [
+            0,
+            1,
+            60
+          ]
+        ]
+      },
+      "uncertainty": {
+        "mean_mc_std": 3.5087204337120057,
+        "nominal_level": 0.9,
+        "capped": {
+          "dropout": {
+            "coverage": 0.4,
+            "average_width": 11.485281207645478,
+            "below_interval": 0.22,
+            "above_interval": 0.38
+          },
+          "validation_scaled": {
+            "coverage": 0.9,
+            "average_width": 52.06371328096212,
+            "below_interval": 0.04,
+            "above_interval": 0.06
+          }
+        },
+        "uncapped": {
+          "dropout": {
+            "coverage": 0.4,
+            "average_width": 11.485281207645478,
+            "below_interval": 0.22,
+            "above_interval": 0.38
+          },
+          "validation_scaled": {
+            "coverage": 1.0,
+            "average_width": 190.40698818719954,
+            "below_interval": 0.0,
+            "above_interval": 0.0
+          }
+        }
+      }
+    },
+    "FD002": {
+      "engines": 259,
+      "labels_capped": 57,
+      "capped": {
+        "rmse": 13.697137494698008,
+        "mae": 9.623361771631425,
+        "r2": 0.8982462822895277,
+        "nasa_score": 881.9158075465206,
+        "residual_mean": -0.7420936201530074,
+        "residual_std": 13.677019873042163,
+        "residual_quantiles_05_50_95": [
+          -22.959745025634763,
+          -1.1979141235351562,
+          24.8170669555664
+        ],
+        "overprediction_rate": 0.4517374517374517
+      },
+      "uncapped": {
+        "rmse": 26.39553451370493,
+        "mae": 17.109870763358924,
+        "r2": 0.7590988899111009,
+        "nasa_score": 7354.641097460379,
+        "residual_mean": -8.236302114361502,
+        "residual_std": 25.077630863882508,
+        "residual_quantiles_05_50_95": [
+          -63.93169250488281,
+          -1.55352783203125,
+          24.8170669555664
+        ],
+        "overprediction_rate": 0.444015444015444
+      },
+      "classification": {
+        "Critical": {
+          "precision": 0.9508196721311475,
+          "recall": 0.9508196721311475,
+          "f1-score": 0.9508196721311475,
+          "support": 61.0
+        },
+        "Warning": {
+          "precision": 0.7804878048780488,
+          "recall": 0.7804878048780488,
+          "f1-score": 0.7804878048780488,
+          "support": 41.0
+        },
+        "Healthy": {
+          "precision": 0.9617834394904459,
+          "recall": 0.9617834394904459,
+          "f1-score": 0.9617834394904459,
+          "support": 157.0
+        },
+        "accuracy": 0.9305019305019305,
+        "macro avg": {
+          "precision": 0.8976969721665474,
+          "recall": 0.8976969721665474,
+          "f1-score": 0.8976969721665474,
+          "support": 259.0
+        },
+        "weighted avg": {
+          "precision": 0.9305019305019305,
+          "recall": 0.9305019305019305,
+          "f1-score": 0.9305019305019305,
+          "support": 259.0
+        },
+        "labels": [
+          "Critical",
+          "Warning",
+          "Healthy"
+        ],
+        "confusion_matrix": [
+          [
+            58,
+            3,
+            0
+          ],
+          [
+            3,
+            32,
+            6
+          ],
+          [
+            0,
+            6,
+            151
+          ]
+        ]
+      },
+      "uncertainty": {
+        "mean_mc_std": 3.7064687708630064,
+        "nominal_level": 0.9,
+        "capped": {
+          "dropout": {
+            "coverage": 0.47876447876447875,
+            "average_width": 12.084522798048392,
+            "below_interval": 0.21621621621621623,
+            "above_interval": 0.305019305019305
+          },
+          "validation_scaled": {
+            "coverage": 0.915057915057915,
+            "average_width": 54.43477087454395,
+            "below_interval": 0.05019305019305019,
+            "above_interval": 0.03474903474903475
+          }
+        },
+        "uncapped": {
+          "dropout": {
+            "coverage": 0.416988416988417,
+            "average_width": 12.084522798048392,
+            "below_interval": 0.21621621621621623,
+            "above_interval": 0.3667953667953668
+          },
+          "validation_scaled": {
+            "coverage": 1.0,
+            "average_width": 199.8462383930794,
+            "below_interval": 0.0,
+            "above_interval": 0.0
+          }
+        }
+      }
+    },
+    "FD003": {
+      "engines": 100,
+      "labels_capped": 15,
+      "capped": {
+        "rmse": 14.323724914293527,
+        "mae": 9.916138305664063,
+        "r2": 0.8662506848707305,
+        "nasa_score": 938.215327673911,
+        "residual_mean": 1.5140901947021483,
+        "residual_std": 14.243476622744177,
+        "residual_quantiles_05_50_95": [
+          -21.024918365478516,
+          0.4744720458984375,
+          19.105787277221662
+        ],
+        "overprediction_rate": 0.51
+      },
+      "uncapped": {
+        "rmse": 16.153115250179685,
+        "mae": 11.471155853271485,
+        "r2": 0.8477337198152077,
+        "nasa_score": 1027.4019265243567,
+        "residual_mean": -0.04590980529785156,
+        "residual_std": 16.153050008446236,
+        "residual_quantiles_05_50_95": [
+          -27.826349639892577,
+          0.2772102355957031,
+          19.105787277221662
+        ],
+        "overprediction_rate": 0.5
+      },
+      "classification": {
+        "Critical": {
+          "precision": 1.0,
+          "recall": 0.9,
+          "f1-score": 0.9473684210526315,
+          "support": 20.0
+        },
+        "Warning": {
+          "precision": 0.8333333333333334,
+          "recall": 0.7142857142857143,
+          "f1-score": 0.7692307692307693,
+          "support": 21.0
+        },
+        "Healthy": {
+          "precision": 0.90625,
+          "recall": 0.9830508474576272,
+          "f1-score": 0.943089430894309,
+          "support": 59.0
+        },
+        "accuracy": 0.91,
+        "macro avg": {
+          "precision": 0.9131944444444445,
+          "recall": 0.8657788539144472,
+          "f1-score": 0.8865628737259033,
+          "support": 100.0
+        },
+        "weighted avg": {
+          "precision": 0.9096875,
+          "recall": 0.91,
+          "f1-score": 0.90743490997663,
+          "support": 100.0
+        },
+        "labels": [
+          "Critical",
+          "Warning",
+          "Healthy"
+        ],
+        "confusion_matrix": [
+          [
+            18,
+            2,
+            0
+          ],
+          [
+            0,
+            15,
+            6
+          ],
+          [
+            0,
+            1,
+            58
+          ]
+        ]
+      },
+      "uncertainty": {
+        "mean_mc_std": 3.5370909476280215,
+        "nominal_level": 0.9,
+        "capped": {
+          "dropout": {
+            "coverage": 0.42,
+            "average_width": 11.606591409623144,
+            "below_interval": 0.32,
+            "above_interval": 0.26
+          },
+          "validation_scaled": {
+            "coverage": 0.91,
+            "average_width": 53.370476586187166,
+            "below_interval": 0.05,
+            "above_interval": 0.04
+          }
+        },
+        "uncapped": {
+          "dropout": {
+            "coverage": 0.35,
+            "average_width": 11.606591409623144,
+            "below_interval": 0.32,
+            "above_interval": 0.33
+          },
+          "validation_scaled": {
+            "coverage": 1.0,
+            "average_width": 195.6697529090866,
+            "below_interval": 0.0,
+            "above_interval": 0.0
+          }
+        }
+      }
+    },
+    "FD004": {
+      "engines": 248,
+      "labels_capped": 67,
+      "capped": {
+        "rmse": 15.235919675582991,
+        "mae": 10.894526035554948,
+        "r2": 0.8743445640219243,
+        "nasa_score": 1023.7665832598237,
+        "residual_mean": -1.514429969172324,
+        "residual_std": 15.160466689033345,
+        "residual_quantiles_05_50_95": [
+          -27.87210998535156,
+          0.29537010192871094,
+          23.608536529541
+        ],
+        "overprediction_rate": 0.5080645161290323
+      },
+      "uncapped": {
+        "rmse": 27.536261755752328,
+        "mae": 19.45611543040122,
+        "r2": 0.7449426526428654,
+        "nasa_score": 5635.1666322683395,
+        "residual_mean": -10.207978356269098,
+        "residual_std": 25.574262244671885,
+        "residual_quantiles_05_50_95": [
+          -62.81954231262207,
+          -0.7147407531738281,
+          23.608536529541
+        ],
+        "overprediction_rate": 0.4838709677419355
+      },
+      "classification": {
+        "Critical": {
+          "precision": 0.9423076923076923,
+          "recall": 0.9245283018867925,
+          "f1-score": 0.9333333333333333,
+          "support": 53.0
+        },
+        "Warning": {
+          "precision": 0.7692307692307693,
+          "recall": 0.7894736842105263,
+          "f1-score": 0.7792207792207793,
+          "support": 38.0
+        },
+        "Healthy": {
+          "precision": 0.9681528662420382,
+          "recall": 0.9681528662420382,
+          "f1-score": 0.9681528662420382,
+          "support": 157.0
+        },
+        "accuracy": 0.9314516129032258,
+        "macro avg": {
+          "precision": 0.8932304425934999,
+          "recall": 0.8940516174464523,
+          "f1-score": 0.8935689929320502,
+          "support": 248.0
+        },
+        "weighted avg": {
+          "precision": 0.9321495037220844,
+          "recall": 0.9314516129032258,
+          "f1-score": 0.9317623236978075,
+          "support": 248.0
+        },
+        "labels": [
+          "Critical",
+          "Warning",
+          "Healthy"
+        ],
+        "confusion_matrix": [
+          [
+            49,
+            4,
+            0
+          ],
+          [
+            3,
+            30,
+            5
+          ],
+          [
+            0,
+            5,
+            152
+          ]
+        ]
+      },
+      "uncertainty": {
+        "mean_mc_std": 3.8620532097355014,
+        "nominal_level": 0.9,
+        "capped": {
+          "dropout": {
+            "coverage": 0.4637096774193548,
+            "average_width": 12.679866936662112,
+            "below_interval": 0.24193548387096775,
+            "above_interval": 0.29435483870967744
+          },
+          "validation_scaled": {
+            "coverage": 0.9112903225806451,
+            "average_width": 58.5935803111723,
+            "below_interval": 0.036290322580645164,
+            "above_interval": 0.05241935483870968
+          }
+        },
+        "uncapped": {
+          "dropout": {
+            "coverage": 0.3588709677419355,
+            "average_width": 12.679866936662112,
+            "below_interval": 0.23790322580645162,
+            "above_interval": 0.4032258064516129
+          },
+          "validation_scaled": {
+            "coverage": 1.0,
+            "average_width": 209.3579669937319,
+            "below_interval": 0.0,
+            "above_interval": 0.0
+          }
+        }
+      }
+    },
+    "pooled": {
+      "engines": 707,
+      "labels_capped": 150,
+      "capped": {
+        "rmse": 14.437997298956747,
+        "mae": 10.230225515837716,
+        "r2": 0.8823118371919687,
+        "nasa_score": 3153.395042734381,
+        "residual_mean": -1.0446688531986221,
+        "residual_std": 14.4001539225051,
+        "residual_quantiles_05_50_95": [
+          -26.081135940551757,
+          -0.634063720703125,
+          23.857881164550776
+        ],
+        "overprediction_rate": 0.4823196605374823
+      },
+      "uncapped": {
+        "rmse": 24.357580923829783,
+        "mae": 16.347314276148946,
+        "r2": 0.7725446266023794,
+        "nasa_score": 14368.653695589996,
+        "residual_mean": -7.211571257724789,
+        "residual_std": 23.265532197989245,
+        "residual_quantiles_05_50_95": [
+          -56.70981140136719,
+          -0.8707275390625,
+          23.857881164550776
+        ],
+        "overprediction_rate": 0.4695898161244696
+      },
+      "classification": {
+        "Critical": {
+          "precision": 0.9545454545454546,
+          "recall": 0.9245283018867925,
+          "f1-score": 0.939297124600639,
+          "support": 159.0
+        },
+        "Warning": {
+          "precision": 0.7727272727272727,
+          "recall": 0.7456140350877193,
+          "f1-score": 0.7589285714285714,
+          "support": 114.0
+        },
+        "Healthy": {
+          "precision": 0.9503386004514672,
+          "recall": 0.9700460829493087,
+          "f1-score": 0.9600912200684151,
+          "support": 434.0
+        },
+        "accuracy": 0.9236209335219236,
+        "macro avg": {
+          "precision": 0.8925371092413982,
+          "recall": 0.8800628066412735,
+          "f1-score": 0.8861056386992084,
+          "support": 707.0
+        },
+        "weighted avg": {
+          "precision": 0.9226458118240073,
+          "recall": 0.9236209335219236,
+          "f1-score": 0.9229783443621653,
+          "support": 707.0
+        },
+        "labels": [
+          "Critical",
+          "Warning",
+          "Healthy"
+        ],
+        "confusion_matrix": [
+          [
+            147,
+            12,
+            0
+          ],
+          [
+            7,
+            85,
+            22
+          ],
+          [
+            0,
+            13,
+            421
+          ]
+        ]
+      },
+      "uncertainty": {
+        "mean_mc_std": 3.7091170379093716,
+        "nominal_level": 0.9,
+        "capped": {
+          "dropout": {
+            "coverage": 0.45403111739745405,
+            "average_width": 12.140998114163505,
+            "below_interval": 0.24045261669024046,
+            "above_interval": 0.3055162659123055
+          },
+          "validation_scaled": {
+            "coverage": 0.9108910891089109,
+            "average_width": 55.40768396095126,
+            "below_interval": 0.04384724186704385,
+            "above_interval": 0.04526166902404526
+          }
+        },
+        "uncapped": {
+          "dropout": {
+            "coverage": 0.38472418670438474,
+            "average_width": 12.140998114163505,
+            "below_interval": 0.23903818953323905,
+            "above_interval": 0.37623762376237624
+          },
+          "validation_scaled": {
+            "coverage": 1.0,
+            "average_width": 201.25689627706038,
+            "below_interval": 0.0,
+            "above_interval": 0.0
+          }
+        }
+      }
+    }
+  }
+}

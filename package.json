@@ -1,0 +1,23 @@
+{
+  "name": "aeroguard-ai",
+  "version": "1.0.0",
+  "description": "AeroGuard AI is a predictive maintenance dashboard for aircraft engines built around the NASA C-MAPSS Remaining Useful Life (RUL) benchmark. It combines a PyTorch LSTM model, a Flask API, and interactive dashboard pages for model diagnostics, telemetry, and live predictions.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GargCodesT18/AeroGuard-AI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GargCodesT18/AeroGuard-AI/issues"
+  },
+  "homepage": "https://github.com/GargCodesT18/AeroGuard-AI#readme"
+}

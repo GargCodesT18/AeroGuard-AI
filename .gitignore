@@ -1,0 +1,92 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# Data (Large datasets)
+data/
+
+# Include original deliverables explicitly so a fresh Git history retains them.
+models/*
+!models/.gitkeep
+!models/lstm_rul.pth
+!models/scaler.pkl
+!models/training_history.json
+!models/learning_curves.png
+!models/training_loss.png
+!models/predictions_analysis.png
+!models/actual_vs_predicted_FD00[1-4].png
+!models/error_histogram_FD00[1-4].png
+!models/current/
+models/current/*
+!models/current/lstm_rul.pth
+!models/current/scaler.pkl
+!models/current/training_history.json
+!models/current/evaluation.json
+!models/current/test_predictions.csv
+!models/current/learning_curves.png
+!models/comparative/
+
+# IDEs
+.vscode/
+.idea/
+.conda-node
+
+# OS
+.DS_Store
+
+# Misc
+tempCodeRunnerFile.cpp
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local environments and dependencies
+.conda-envs/
+.conda/
+.conda-pkgs/
+.pip-cache/
+.pip-torch-cache/
+.cache/
+node_modules/
+*.whl
+
+# Temporary files and caches
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.log
+server_log.txt
+*.tmp
+*.part
+*.bak
+coverage/
+.coverage
+
+# Local authentication state
+.aws/
+.ssh/
+.npmrc
+.pypirc
+credentials.json
+*service-account*.json
+
+# Local experiments; keep the existing tracked inspection helper
+scratch/*
+!scratch/inspect_checkpoint.py
+
+# Private academic submission artifacts
+/report/
+
+# Private history exports and local publication working files
+*.bundle
+/publication-private/

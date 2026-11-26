@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<title>Model Insights | AeroGuard AI</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="/tailwind.min.css" rel="stylesheet"/>
+<link href="/theme.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script defer src="/theme.js"></script>
+<script defer src="/ui_features.js"></script>
+
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #000000; color: #FFFFFF; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .chart-grid { background-image: linear-gradient(#262626 1px, transparent 1px), linear-gradient(90deg, #262626 1px, transparent 1px); background-size: 20px 20px; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+<script src="/chart.umd.min.js"></script>
+</head>
+<body class="bg-black text-white selection:bg-orange-500/30">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-screen w-64 border-r border-zinc-800 bg-zinc-950 flex flex-col h-full py-4 z-50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-orange-500 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-black font-bold" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</div>
+<div>
+<h1 class="text-orange-500 font-black tracking-wider text-lg">AeroGuard AI</h1>
+<p class="text-[10px] text-zinc-500 font-medium uppercase tracking-widest">V2.4.0-Active</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-500 font-inter text-sm font-medium uppercase tracking-wider hover:bg-zinc-900 hover:text-zinc-200 transition-colors duration-150 ease-in-out" href="Main_Dashboard.html">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-500 font-inter text-sm font-medium uppercase tracking-wider hover:bg-zinc-900 hover:text-zinc-200 transition-colors duration-150 ease-in-out" href="Live_Prediction_Panel.html">
+<span class="material-symbols-outlined text-lg">query_stats</span>
+                Live Prediction
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-orange-500 bg-orange-500/5 border-r-2 border-orange-500 font-inter text-sm font-medium uppercase tracking-wider transition-colors duration-150 ease-in-out" href="Model_Insights.html">
+<span class="material-symbols-outlined text-lg">insights</span>
+                Model Insights
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-500 font-inter text-sm font-medium uppercase tracking-wider hover:bg-zinc-900 hover:text-zinc-200 transition-colors duration-150 ease-in-out" href="Model_Details_Architecture.html">
+<span class="material-symbols-outlined text-lg">analytics</span>
+                Model Details
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-500 font-inter text-sm font-medium uppercase tracking-wider hover:bg-zinc-900 hover:text-zinc-200 transition-colors duration-150 ease-in-out" href="Data_Explorer.html">
+<span class="material-symbols-outlined text-lg">database</span>
+                Data Explorer
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-500 font-inter text-sm font-medium uppercase tracking-wider hover:bg-zinc-900 hover:text-zinc-200 transition-colors duration-150 ease-in-out" href="API_Deployment_Demo.html">
+<span class="material-symbols-outlined text-lg">api</span>
+                API Demo
+            </a>
+</nav>
+<div class="mt-auto px-3 pt-4 border-t border-zinc-800 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-500 font-inter text-sm font-medium uppercase tracking-wider hover:bg-zinc-900 hover:text-zinc-200 transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-500 font-inter text-sm font-medium uppercase tracking-wider hover:bg-zinc-900 hover:text-zinc-200 transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+                Settings
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen bg-black flex flex-col">
+<!-- TopNavBar Shell -->
+<header class="sticky top-0 z-40 bg-black border-b border-zinc-800 flex justify-between items-center w-full px-6 h-16 font-inter tracking-tight">
+<div class="flex items-center gap-4">
+<span class="text-orange-500 font-bold uppercase tracking-widest text-lg">AeroGuard AI</span>
+<div class="h-4 w-[1px] bg-zinc-800"></div>
+<div class="flex items-center gap-2 px-3 py-1 bg-zinc-900 rounded-full">
+<div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+<span class="text-xs text-zinc-400 font-medium">System Status: Nominal</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 text-zinc-400">
+<button class="p-2 hover:bg-zinc-900 hover:text-white rounded-lg transition-colors duration-200" id="insights-notifications-btn" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-zinc-900 hover:text-white rounded-lg transition-colors duration-200" id="insights-settings-btn" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-zinc-800">
+<img alt="User profile" class="w-8 h-8 rounded-full border border-zinc-700" data-alt="close up headshot portrait of male aerospace engineer with neutral expression and sharp lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJVFChJaJ-7X6W1vqHQXQoZM4f4XrLGiniRqvp2rsaTk7xrCYn3jzXuv1vWXZlqS1W2xoY11_T5ljnsQJOB0AtpmUkwXXkuYOYct4SHiApz9wbS0anTLaoHY8T6YkEKTYmzpIp1bcjyK1PHnixjMmnoHVR8qhGtEOxi6ikQ7rluRUq55ZrZwyRhSZ7v_1vl8Cnr_IIvPqHxjqLgBI-ws-SRGy0KQk-9PCP5ZVhRlC6SR2S9eDm3pA87mW_JzU-JeGqF0CbZJCDxS0"/>
+<span class="text-sm font-semibold text-white">CH-082</span>
+</div>
+</div>
+</header>
+<!-- Insights Dashboard -->
+<div class="p-8 space-y-8 max-w-[1600px] mx-auto w-full">
+<!-- Hero Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-zinc-950 border border-zinc-800 p-6 rounded-none flex flex-col justify-between">
+<span class="text-xs text-zinc-500 font-bold uppercase tracking-tighter mb-2">Validation RMSE</span>
+<div class="flex items-end gap-2">
+<span class="text-4xl font-black text-white" data-kpi="val-rmse">--</span>
+</div>
+<span class="text-[10px] text-zinc-500 mt-2 block">Cycles · held-out engines</span>
+</div>
+<div class="bg-zinc-950 border border-zinc-800 p-6 rounded-none">
+<span class="text-xs text-zinc-500 font-bold uppercase tracking-tighter mb-2">Best Epoch</span>
+<div class="text-4xl font-black text-white" data-kpi="epochs">--</div>
+<span class="text-[10px] text-green-500 mt-2 block">Lowest validation RMSE</span>
+</div>
+<div class="bg-zinc-950 border border-zinc-800 p-6 rounded-none">
+<span class="text-xs text-zinc-500 font-bold uppercase tracking-tighter mb-2">Capped test MAE</span>
+<div class="text-4xl font-black text-white" data-kpi="mae">--</div>
+<span class="text-[10px] text-zinc-500 mt-2 block">Mean Absolute Error (cycles)</span>
+</div>
+<div class="bg-zinc-950 border border-zinc-800 p-6 rounded-none">
+<span class="text-xs text-zinc-500 font-bold uppercase tracking-tighter mb-2">Latent Dim</span>
+<div class="text-4xl font-black text-white" data-kpi="latent-dim">--</div>
+<span class="text-[10px] text-orange-500 mt-2 block">LSTM Sequence Enabled</span>
+</div>
+</div>
+<!-- Main Insights Grid (Bento) -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Feature Importance - Horizontal Bar Chart -->
+<div class="col-span-12 lg:col-span-4 bg-zinc-950 border border-zinc-800 p-6">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xs font-black uppercase tracking-[0.2em] text-orange-500" id="feature-metric-label">Feature importance</h3>
+<span class="material-symbols-outlined text-zinc-600 text-sm">info</span>
+</div>
+<div id="feature-list" class="space-y-6">
+  <div class="text-zinc-500 text-xs">Loading features...</div>
+</div>
+</div>
+<!-- Training Metrics - Loss & Accuracy Graphs -->
+<div class="col-span-12 lg:col-span-8 bg-zinc-950 border border-zinc-800 p-6 flex flex-col">
+  <div class="flex items-center justify-between mb-8">
+    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-orange-500">Training Metrics: Loss Convergence</h3>
+    <div class="flex gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+        <span class="text-[10px] text-zinc-500 font-bold uppercase">Train Loss</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 bg-white rounded-full"></div>
+        <span class="text-[10px] text-zinc-500 font-bold uppercase">Val RMSE</span>
+      </div>
+    </div>
+  </div>
+  <div class="flex-1 relative min-h-[300px]">
+    <canvas id="loss-canvas"></canvas>
+  </div>
+</div>
+<!-- LSTM Latent State Degradation -->
+<div class="col-span-12 lg:col-span-7 bg-zinc-950 border border-zinc-800 p-6">
+<div class="flex items-center justify-between mb-6">
+<div class="space-y-1">
+<h3 class="text-xs font-black uppercase tracking-[0.2em] text-orange-500">Latent State Degradation</h3>
+<p class="text-[10px] text-zinc-500 uppercase tracking-wider">Sequential Model State Vector Analysis</p>
+</div>
+<div class="flex items-center gap-4 text-[10px] font-bold">
+<div class="flex items-center gap-1"><div class="w-2 h-2 bg-cyan-400"></div> <span class="text-zinc-400">LOW</span></div>
+<div class="flex items-center gap-1"><div class="w-2 h-2 bg-orange-500"></div> <span class="text-zinc-400">MEDIUM</span></div>
+<div class="flex items-center gap-1"><div class="w-2 h-2 bg-rose-500"></div> <span class="text-zinc-400">HIGH</span></div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-4">
+  <div class="h-52 relative border border-zinc-800 bg-zinc-950/60">
+    <canvas id="latent-heatmap-canvas" class="w-full h-full"></canvas>
+    <div id="latent-heatmap-empty" class="hidden absolute inset-0 flex items-center justify-center text-zinc-600 text-xs uppercase tracking-widest">Latent state unavailable</div>
+  </div>
+  <div class="h-20 relative border border-zinc-800 bg-zinc-950/60">
+    <canvas id="latent-trend-canvas" class="w-full h-full"></canvas>
+  </div>
+</div>
+</div>
+<!-- RUL Estimation Accuracy Curve -->
+<div class="col-span-12 lg:col-span-5 bg-zinc-950 border border-zinc-800 p-6">
+<h3 class="text-xs font-black uppercase tracking-[0.2em] text-orange-500 mb-6">RUL Error by Target Range</h3>
+<div id="accuracy-chart-container" class="relative h-64 w-full">
+  <canvas id="accuracy-canvas"></canvas>
+</div>
+<div class="mt-4 flex justify-between text-[10px] font-bold text-zinc-500">
+<span>RMSE and MAE in cycles</span>
+</div>
+</div>
+<!-- Multi-Sensor Trend Analysis -->
+<div class="col-span-12 bg-zinc-950 border border-zinc-800 p-6">
+<div class="flex items-center justify-between mb-8">
+<h3 class="text-xs font-black uppercase tracking-[0.2em] text-orange-500">Recent sensor readings · FD001, engine 1</h3>
+<div class="flex gap-4">
+<button class="px-3 py-1 bg-zinc-900 border border-zinc-700 text-[10px] font-bold text-zinc-300 uppercase hover:bg-zinc-800" id="insights-export-csv-btn" type="button">Export CSV</button>
+<button class="px-3 py-1 bg-orange-500 text-black border border-orange-500 text-[10px] font-bold uppercase" id="insights-sync-stream-btn" type="button">Sync Stream</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Sensor Row 1 -->
+<div class="space-y-4">
+<div class="flex justify-between items-end border-b border-zinc-800 pb-2">
+<span class="text-[10px] font-bold uppercase text-zinc-500">Sensor 2</span>
+<span class="text-xs font-black text-white" data-value="sensor_2">--</span>
+</div>
+<div class="h-16 flex items-end gap-1" data-trend="sensor_2">
+</div>
+</div>
+<!-- Sensor Row 2 -->
+<div class="space-y-4">
+<div class="flex justify-between items-end border-b border-zinc-800 pb-2">
+<span class="text-[10px] font-bold uppercase text-zinc-500">Sensor 7</span>
+<span class="text-xs font-black text-white" data-value="sensor_7">--</span>
+</div>
+<div class="h-16 flex items-end gap-1" data-trend="sensor_7">
+</div>
+</div>
+<!-- Sensor Row 3 -->
+<div class="space-y-4">
+<div class="flex justify-between items-end border-b border-zinc-800 pb-2">
+<span class="text-[10px] font-bold uppercase text-zinc-500">Sensor 11</span>
+<span class="text-xs font-black text-white" data-value="sensor_11">--</span>
+</div>
+<div class="h-16 flex items-end gap-1" data-trend="sensor_11">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- System Footer Metadata -->
+<footer class="mt-auto p-6 border-t border-zinc-900 bg-zinc-950/50 flex flex-wrap justify-between items-center gap-4">
+<div class="flex items-center gap-6">
+<div class="flex flex-col">
+<span class="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">Model Engine</span>
+<span class="text-xs font-medium text-zinc-400">PyTorch LSTM</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] font-bold text-zinc-600 uppercase tracking-widest">Selected epoch</span>
+<span class="text-xs font-medium text-zinc-400" data-kpi="epochs">--</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-[9px] font-bold text-zinc-500 uppercase">Architecture: 2 x 64 LSTM + Dropout + Linear</span>
+<div class="w-3 h-3 bg-green-500 rounded-sm"></div>
+</div>
+</footer>
+</main>
+<script>
+const API = (window.AeroPredictUi && typeof window.AeroPredictUi.getApiBase === 'function')
+  ? window.AeroPredictUi.getApiBase()
+  : (location.protocol.startsWith('http') ? location.origin : 'http://127.0.0.1:8000');
+const insightsState = {
+  summary: null,
+  history: [],
+  latentActivations: [],
+  resizeTimer: null,
+  charts: {
+    loss: null,
+    featureImportance: null,
+    accuracy: null
+  }
+};
+
+function showUiToast(message, tone = 'info') {
+  if (window.AeroPredictUi && typeof window.AeroPredictUi.showToast === 'function') {
+    window.AeroPredictUi.showToast(message, tone);
+  }
+}
+
+function exportHistoryAsCsv() {
+  if (!Array.isArray(insightsState.history) || insightsState.history.length === 0) {
+    showUiToast('No training history found to export.', 'warning');
+    return;
+  }
+
+  const rows = [['epoch', 'loss', 'val_rmse']];
+  insightsState.history.forEach((item) => {
+    rows.push([item.epoch, item.loss, item.val_rmse]);
+  });
+
+  const csv = rows
+    .map((row) => row.map((cell) => `"${String(cell ?? '').replace(/"/g, '""')}"`).join(','))
+    .join('\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `model-insights-history-${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  showUiToast('Training history CSV exported.', 'success');
+}
+
+function setButtonBusy(button, isBusy) {
+  if (!button) return;
+  button.disabled = isBusy;
+  button.classList.toggle('opacity-60', isBusy);
+  button.classList.toggle('cursor-not-allowed', isBusy);
+}
+
+function toTitle(value) {
+  return String(value || '')
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function drawFeatureImportanceChart(features, values) {
+  const container = document.getElementById('feature-list');
+  if (!container) return;
+
+  // Validate input data
+  if (!Array.isArray(features) || !Array.isArray(values) || features.length === 0) {
+    container.innerHTML = '<div class="text-zinc-500 text-xs">No feature importance data available</div>';
+    return;
+  }
+
+  const safeValues = values.map((v) => {
+    const num = Number(v);
+    return isFinite(num) ? Math.max(num, 0) : 0;
+  });
+
+  const pairs = features.map((f, i) => ({
+    label: toTitle(String(f)),
+    value: safeValues[i] || 0
+  })).filter(p => p.value > 0);
+
+  if (pairs.length === 0) {
+    container.innerHTML = '<div class="text-zinc-500 text-xs">No positive feature importance values</div>';
+    return;
+  }
+
+  // Sort and take top 10
+  const maxVal = Math.max(...pairs.map(p => p.value));
+  const sorted = pairs.sort((a, b) => b.value - a.value).slice(0, 10);
+
+  container.innerHTML = sorted.map((p) => {
+    const pct = (p.value / maxVal) * 100;
+    const barWidth = Math.max(5, pct);
+    return `<div class="mb-3">
+      <div class="flex justify-between items-center mb-1">
+        <span class="text-[10px] font-bold uppercase text-zinc-300 truncate">${p.label}</span>
+        <span class="text-[10px] font-bold text-zinc-400 ml-2">${Math.round(pct)}%</span>
+      </div>
+      <div class="h-2 bg-zinc-800 w-full rounded overflow-hidden">
+        <div class="h-full bg-orange-500 transition-all" style="width:${barWidth}%"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function colorForActivation(norm) {
+  const t = Math.max(0, Math.min(1, norm));
+  if (t < 0.4) {
+    const q = t / 0.4;
+    const r = Math.round(34 + q * 215);
+    const g = Math.round(211 - q * 96);
+    const b = Math.round(238 - q * 180);
+    return `rgb(${r},${g},${b})`;
+  }
+  if (t < 0.75) {
+    const q = (t - 0.4) / 0.35;
+    const r = 249;
+    const g = Math.round(115 + q * 60);
+    const b = Math.round(22 - q * 10);
+    return `rgb(${r},${g},${b})`;
+  }
+  const q = (t - 0.75) / 0.25;
+  const r = Math.round(249 - q * 37);
+  const g = Math.round(175 - q * 112);
+  const b = Math.round(12 + q * 76);
+  return `rgb(${r},${g},${b})`;
+}
+
+function drawLatentHeatmap(activations) {
+  const heatmapCanvas = document.getElementById('latent-heatmap-canvas');
+  const trendCanvas = document.getElementById('latent-trend-canvas');
+  const emptyState = document.getElementById('latent-heatmap-empty');
+  if (!heatmapCanvas || !trendCanvas) return;
+
+  const matrix = Array.isArray(activations) ? activations : [];
+  const rows = matrix.length;
+  const cols = rows > 0 && Array.isArray(matrix[0]) ? matrix[0].length : 0;
+  if (rows === 0 || cols === 0) {
+    if (emptyState) emptyState.classList.remove('hidden');
+    return;
+  }
+  if (emptyState) emptyState.classList.add('hidden');
+
+  const dpr = Math.max(1, window.devicePixelRatio || 1);
+
+  const heatRect = heatmapCanvas.getBoundingClientRect();
+  heatmapCanvas.width = Math.floor(heatRect.width * dpr);
+  heatmapCanvas.height = Math.floor(heatRect.height * dpr);
+  const hctx = heatmapCanvas.getContext('2d');
+  if (!hctx) return;
+  hctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  hctx.clearRect(0, 0, heatRect.width, heatRect.height);
+
+  const plotX = 34;
+  const plotY = 10;
+  const plotW = Math.max(10, heatRect.width - 44);
+  const plotH = Math.max(10, heatRect.height - 22);
+  const cellW = plotW / cols;
+  const cellH = plotH / rows;
+  const flat = matrix.flat().map((v) => Math.abs(Number(v) || 0));
+  const maxAct = Math.max(...flat, 0.00001);
+
+  for (let r = 0; r < rows; r += 1) {
+    for (let c = 0; c < cols; c += 1) {
+      const raw = Math.abs(Number(matrix[r][c]) || 0);
+      const n = raw / maxAct;
+      hctx.fillStyle = colorForActivation(n);
+      hctx.fillRect(plotX + c * cellW, plotY + r * cellH, Math.ceil(cellW), Math.ceil(cellH));
+    }
+  }
+
+  hctx.strokeStyle = 'rgba(161,161,170,0.35)';
+  hctx.lineWidth = 1;
+  hctx.strokeRect(plotX, plotY, plotW, plotH);
+  hctx.fillStyle = '#a1a1aa';
+  hctx.font = '10px Inter, sans-serif';
+  hctx.fillText('t1', plotX, heatRect.height - 4);
+  hctx.fillText(`t${rows}`, plotX + plotW - 18, heatRect.height - 4);
+  hctx.save();
+  hctx.translate(10, plotY + plotH / 2);
+  hctx.rotate(-Math.PI / 2);
+  hctx.fillText('latent unit index', 0, 0);
+  hctx.restore();
+
+  const trendRect = trendCanvas.getBoundingClientRect();
+  trendCanvas.width = Math.floor(trendRect.width * dpr);
+  trendCanvas.height = Math.floor(trendRect.height * dpr);
+  const tctx = trendCanvas.getContext('2d');
+  if (!tctx) return;
+  tctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  tctx.clearRect(0, 0, trendRect.width, trendRect.height);
+
+  const trend = matrix.map((row) => row.reduce((acc, v) => acc + Math.abs(Number(v) || 0), 0) / cols);
+  const maxTrend = Math.max(...trend, 0.00001);
+  const minTrend = Math.min(...trend);
+  const tx = 8;
+  const ty = 8;
+  const tw = Math.max(10, trendRect.width - 16);
+  const th = Math.max(10, trendRect.height - 16);
+
+  tctx.strokeStyle = 'rgba(113,113,122,0.4)';
+  tctx.lineWidth = 1;
+  tctx.strokeRect(tx, ty, tw, th);
+
+  tctx.beginPath();
+  trend.forEach((v, i) => {
+    const px = tx + (i / Math.max(trend.length - 1, 1)) * tw;
+    const pn = (v - minTrend) / Math.max(maxTrend - minTrend, 0.00001);
+    const py = ty + th - pn * th;
+    if (i === 0) tctx.moveTo(px, py);
+    else tctx.lineTo(px, py);
+  });
+  tctx.strokeStyle = '#fb923c';
+  tctx.lineWidth = 1.8;
+  tctx.stroke();
+
+  tctx.fillStyle = '#a1a1aa';
+  tctx.font = '10px Inter, sans-serif';
+  tctx.fillText('Mean |activation| by timestep', tx + 4, ty + 12);
+}
+
+function initInsightsButtons() {
+  const exportBtn = document.getElementById('insights-export-csv-btn');
+  const syncBtn = document.getElementById('insights-sync-stream-btn');
+
+  if (exportBtn && exportBtn.dataset.wired !== 'true') {
+    exportBtn.dataset.wired = 'true';
+    exportBtn.addEventListener('click', exportHistoryAsCsv);
+  }
+
+  if (syncBtn && syncBtn.dataset.wired !== 'true') {
+    syncBtn.dataset.wired = 'true';
+    syncBtn.addEventListener('click', async () => {
+      setButtonBusy(syncBtn, true);
+      showUiToast('Syncing model insight stream...', 'info');
+      try {
+        const ok = await loadInsights();
+        if (ok) {
+          showUiToast('Model insight stream synced.', 'success');
+          window.dispatchEvent(new CustomEvent('aeropredict:sync-stream'));
+        } else {
+          showUiToast('Sync failed. API may be offline.', 'danger');
+        }
+      } catch (error) {
+        console.error('Sync failed', error);
+        showUiToast('Sync failed. API may be offline.', 'danger');
+      } finally {
+        setButtonBusy(syncBtn, false);
+      }
+    });
+  }
+}
+
+async function loadInsights() {
+  try {
+    const [sumRes, histRes] = await Promise.all([
+      fetch(`${API}/api/summary`),
+      fetch(`${API}/api/history`)
+    ]);
+    const summary = await sumRes.json();
+    const history = await histRes.json();
+    insightsState.summary = summary;
+    insightsState.history = Array.isArray(history) ? history : [];
+
+    // Update hero stats
+    const rmse = summary.metrics.bestValRmse;
+    document.querySelectorAll('[data-kpi="val-rmse"]').forEach(el => {
+      el.textContent = Number.isFinite(rmse) ? rmse.toFixed(2) : 'Unavailable';
+    });
+    document.querySelectorAll('[data-kpi="epochs"]').forEach(el => el.textContent = summary.metrics.bestEpoch);
+    document.querySelectorAll('[data-kpi="mae"]').forEach(el => el.textContent = summary.metrics.testMae.toFixed(3));
+    document.querySelectorAll('[data-kpi="latent-dim"]').forEach(el => el.textContent = summary.config.hiddenSize);
+
+    // Rewrite training chart with real data
+    const canvas = document.getElementById('loss-canvas');
+    if (canvas && history.length > 0) {
+      if (insightsState.charts.loss) {
+        insightsState.charts.loss.destroy();
+      }
+      insightsState.charts.loss = new Chart(canvas, {
+        type:'line',
+        data:{
+          labels: history.map(h=>h.epoch),
+          datasets:[
+            { label:'Train Loss', data:history.map(h=>h.loss), borderColor:'#F97316', backgroundColor:'rgba(249,115,22,0.07)', pointRadius:0, borderWidth:2, fill:true, tension:0.3, yAxisID:'y' },
+            { label:'Val RMSE', data:history.map(h=>h.val_rmse), borderColor:'#ffffff', backgroundColor:'rgba(255,255,255,0.04)', pointRadius:0, borderWidth:2, borderDash:[4,3], fill:true, tension:0.3, yAxisID:'y1' }
+          ]
+        },
+        options:{ responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}},
+          scales:{ x:{grid:{color:'#1c1c1c'}, ticks:{color:'#71717a', maxTicksLimit:8}}, y:{position:'left', grid:{color:'#1c1c1c'}, ticks:{color:'#F97316', maxTicksLimit:5}}, y1:{position:'right', grid:{drawOnChartArea:false}, ticks:{color:'#ffffff', maxTicksLimit:5}} } }
+      });
+    }
+
+    // Feature list - Use /api/explain for real importance
+    try {
+      const explainRes = await fetch(`${API}/api/explain`);
+      const explainData = await explainRes.json();
+        document.getElementById('feature-metric-label').textContent =
+          explainData.method === 'correlation_fallback' ? 'Absolute sensor–RUL correlation' : 'Integrated gradients';
+      if (!explainData.error) {
+        drawFeatureImportanceChart(explainData.features || [], explainData.values || []);
+      }
+    } catch(e) {
+      console.warn('Explain endpoint failed, falling back to basic list');
+      drawFeatureImportanceChart([], []);
+    }
+
+    // Latent state charts (heatmap + trend)
+    try {
+      const latentRes = await fetch(`${API}/api/latent-state`);
+      const latentData = await latentRes.json();
+      if (!latentData.error) {
+        insightsState.latentActivations = Array.isArray(latentData.activations) ? latentData.activations : [];
+        drawLatentHeatmap(insightsState.latentActivations);
+      }
+    } catch(e) {
+      console.error('Latent state error', e);
+      insightsState.latentActivations = [];
+      drawLatentHeatmap([]);
+    }
+
+    try {
+      const res = await fetch(`${API}/api/engine-history?dataset=FD001&engineId=1`);
+      if (res.ok) {
+        const { sensors } = await res.json();
+        document.querySelectorAll('[data-trend]').forEach(el => {
+          const series = sensors[el.dataset.trend].slice(-20);
+          const min = Math.min(...series);
+          const max = Math.max(...series);
+          document.querySelector(`[data-value="${el.dataset.trend}"]`).textContent = series.at(-1).toFixed(2);
+          el.innerHTML = series.map(value => {
+            const height = max === min ? 8 : 8 + 48 * (value - min) / (max - min);
+            return `<div class="flex-1 bg-orange-500/40" style="height:${height}px" title="${value}"></div>`;
+          }).join('');
+        });
+      }
+    } catch (e) { console.error('Sensor readings unavailable', e); }
+
+    // Accuracy Stats Chart
+    try {
+      const accRes = await fetch(`${API}/api/accuracy-stats`);
+      const accData = await accRes.json();
+      const accCanvas = document.getElementById('accuracy-canvas');
+      if (accCanvas && accData.length > 0) {
+        if (insightsState.charts.accuracy) {
+          insightsState.charts.accuracy.destroy();
+        }
+        insightsState.charts.accuracy = new Chart(accCanvas, {
+          type: 'bar',
+          data: {
+            labels: accData.map(d => d.label),
+            datasets: [
+              { label: 'RMSE', data: accData.map(d => d.rmse), backgroundColor: 'rgba(249,115,22,0.8)', borderRadius: 4 },
+              { label: 'MAE',  data: accData.map(d => d.mae),  backgroundColor: 'rgba(255,255,255,0.4)', borderRadius: 4 }
+            ]
+          },
+          options: {
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: '#71717a', font: { size: 9 } } },
+              y: { grid: { color: '#1c1c1c' }, ticks: { color: '#71717a', maxTicksLimit: 5 } }
+            }
+          }
+        });
+      }
+    } catch(e) { console.error('Accuracy stats error', e); }
+
+    return true;
+  } catch(e) {
+    console.error('Insights load error', e);
+    return false;
+  }
+}
+
+window.addEventListener('DOMContentLoaded', loadInsights);
+window.addEventListener('DOMContentLoaded', initInsightsButtons);
+window.addEventListener('resize', () => {
+  if (insightsState.resizeTimer) {
+    window.clearTimeout(insightsState.resizeTimer);
+  }
+  insightsState.resizeTimer = window.setTimeout(() => {
+    drawLatentHeatmap(insightsState.latentActivations || []);
+  }, 180);
+});
+</script>
+</body></html>

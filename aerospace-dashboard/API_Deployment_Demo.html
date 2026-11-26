@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AeroGuard AI - API Demo</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="/tailwind.min.css" rel="stylesheet"/>
+<link href="/theme.css" rel="stylesheet"/>
+<script defer src="/theme.js"></script>
+<script defer src="/ui_features.js"></script>
+
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #FFFFFF;
+        }
+        .code-font {
+            font-family: 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
+        }
+    </style>
+
+</head>
+<body class="bg-black text-white selection:bg-orange-500/30">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen w-64 border-r bg-zinc-950 border-zinc-800 fixed left-0 top-0 py-4 z-50">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 bg-orange-500 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-black text-lg" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</div>
+<span class="text-orange-500 font-black text-lg">System Core</span>
+</div>
+<p class="text-xs text-zinc-500 font-medium font-inter uppercase tracking-widest">Predictive Engine</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium font-inter text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all rounded" href="Main_Dashboard.html">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium font-inter text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all rounded" href="Live_Prediction_Panel.html">
+<span class="material-symbols-outlined">query_stats</span>
+<span>Live Prediction</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium font-inter text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all rounded" href="Model_Insights.html">
+<span class="material-symbols-outlined">insights</span>
+<span>Model Insights</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium font-inter text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all rounded" href="Model_Details_Architecture.html">
+<span class="material-symbols-outlined">analytics</span>
+<span>Model Details</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium font-inter text-zinc-500 hover:text-zinc-200 hover:bg-zinc-900 transition-all rounded" href="Data_Explorer.html">
+<span class="material-symbols-outlined">database</span>
+<span>Data Explorer</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-sm font-medium font-inter text-orange-500 bg-zinc-900 border-r-2 border-orange-500 transition-all" href="API_Deployment_Demo.html">
+<span class="material-symbols-outlined">api</span>
+<span>API Demo</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<div class="p-4 bg-zinc-900 rounded-lg border border-zinc-800">
+<p class="text-[10px] text-zinc-500 uppercase tracking-widest mb-1">Status</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+<span class="text-xs text-zinc-300 font-medium">Local research demo</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-6 h-16 w-full bg-black text-orange-500 font-inter tracking-tight border-b border-zinc-800 sticky top-0 z-40">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-bold uppercase tracking-widest text-white">AeroGuard AI</h1>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center bg-zinc-900 rounded px-3 py-1.5 border border-zinc-800">
+<span class="material-symbols-outlined text-zinc-500 text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-zinc-300 w-48 placeholder:text-zinc-600" placeholder="Search parameters..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-zinc-400 hover:text-white transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-zinc-400 hover:text-white transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-zinc-700">
+<img alt="User profile" data-alt="close-up portrait of a high-tech engineering professional in a dark laboratory setting with orange rim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeLon4k44AXKKyYdoDLXfD3eqJ_wXgE12IEhAPEkCebXeJQSlmLBsbCmoYVnYCLYvRMzRUQZhq6HcUnLUcIfpGGgb2-1d8i_leQtlEiEJZP8wo2eK6XysQrirkQL5Fg7wTGoIvea3ftZAeTJCGWhYx2mdLRP5wyBcLbwymn3p_xZ_g00F3w3JRVomxj89x5_qJpELUCt-bwUIwS5lf3CZUr6X3iFDpYpxl2pEzbwdT0TESkp7xIfdJ9tXeZCexdLlggGgmeQPzNH8"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight text-white mb-2">API Deployment Playground</h2>
+<p class="text-zinc-500 max-w-2xl">Run the sample prediction endpoint on simulated NASA C-MAPSS telemetry.</p>
+</div>
+<div id="api-demo-action-row" class="flex items-center gap-4 bg-zinc-900 p-1 rounded-lg border border-zinc-800">
+<button id="api-demo-send-btn" onclick="window.runApiDemoRequest && window.runApiDemoRequest()" class="px-4 py-2 bg-orange-500 text-black font-bold text-sm rounded shadow-lg shadow-orange-500/20 flex items-center gap-2 hover:bg-orange-400 transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+                            Send Request
+                        </button>
+</div>
+</div>
+<!-- Performance Stats Bar -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="bg-zinc-950 border border-zinc-800 p-4 rounded flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+<span class="material-symbols-outlined text-orange-500" data-icon="speed">speed</span>
+</div>
+<div>
+<p class="text-[10px] text-zinc-500 uppercase tracking-tighter">Last request pair</p>
+<p class="text-xl font-bold text-white" id="api-measured-latency">--</p>
+</div>
+</div>
+<div class="bg-zinc-950 border border-zinc-800 p-4 rounded flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+<span class="material-symbols-outlined text-orange-500" data-icon="verified">verified</span>
+</div>
+<div>
+<p class="text-[10px] text-zinc-500 uppercase tracking-tighter">Model</p>
+<p class="text-xl font-bold text-white">Saved LSTM</p>
+</div>
+</div>
+<div class="bg-zinc-950 border border-zinc-800 p-4 rounded flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+<span class="material-symbols-outlined text-orange-500" data-icon="hub">hub</span>
+</div>
+<div>
+<p class="text-[10px] text-zinc-500 uppercase tracking-tighter">Serving mode</p>
+<p class="text-xl font-bold text-white">Local Flask</p>
+</div>
+</div>
+<div class="bg-zinc-950 border border-zinc-800 p-4 rounded flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-orange-500/10 flex items-center justify-center border border-orange-500/20">
+<span class="material-symbols-outlined text-orange-500" data-icon="query_stats">query_stats</span>
+</div>
+<div>
+<p class="text-[10px] text-zinc-500 uppercase tracking-tighter">Throughput</p>
+<p class="text-xl font-bold text-white">Not benchmarked</p>
+</div>
+</div>
+</div>
+<!-- API Interaction Panel -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Request Panel -->
+<div class="flex flex-col border border-zinc-800 rounded-xl overflow-hidden bg-zinc-950">
+<div class="bg-zinc-900 px-4 py-3 border-b border-zinc-800 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-red-500/50"></span>
+<span class="w-3 h-3 rounded-full bg-yellow-500/50"></span>
+<span class="w-3 h-3 rounded-full bg-green-500/50"></span>
+<span class="ml-4 text-xs font-bold text-zinc-400 uppercase tracking-widest">GET /api/sample-prediction</span>
+</div>
+<div class="flex gap-2">
+<button class="p-1 text-zinc-500 hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+</div>
+<div class="p-6 code-font text-sm leading-relaxed overflow-auto max-h-[500px]">
+<pre id="api-demo-request-block" class="text-zinc-400">Select an engine to preview the request.</pre>
+</div>
+</div>
+<!-- Response Panel -->
+<div class="flex flex-col border border-zinc-800 rounded-xl overflow-hidden bg-zinc-950">
+<div class="bg-zinc-900 px-4 py-3 border-b border-zinc-800 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span id="api-demo-status-badge" class="text-xs font-bold text-green-500 uppercase tracking-widest">Ready</span>
+<span id="api-demo-response-time" class="text-[10px] text-zinc-500 ml-2">Response time unavailable</span>
+</div>
+</div>
+<div class="p-6 code-font text-sm leading-relaxed overflow-auto max-h-[500px]">
+<pre id="api-demo-response-block" class="text-zinc-400">Send a request to see the model output.</pre>
+<div class="mt-8 pt-8 border-t border-zinc-900">
+<p class="text-[10px] text-zinc-500 uppercase tracking-widest mb-4">Visual Interpretation</p>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs text-zinc-400">Prediction interval</span>
+<span id="api-interval-value" class="text-xs text-orange-500">--</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-zinc-400">Measured response time</span>
+<span id="api-latency-value" class="text-xs text-orange-500">--</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Documentation Quick Links -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="group p-6 bg-zinc-950 border border-zinc-800 rounded hover:border-orange-500/50 transition-all cursor-pointer">
+<div class="mb-4 text-orange-500 group-hover:scale-110 transition-transform origin-left">
+<span class="material-symbols-outlined text-3xl" data-icon="description">description</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">API Reference</h3>
+<p class="text-sm text-zinc-500">Inspect a sample prediction request and its actual JSON response above.</p>
+</div>
+<div class="group p-6 bg-zinc-950 border border-zinc-800 rounded hover:border-orange-500/50 transition-all cursor-pointer">
+<div class="mb-4 text-orange-500 group-hover:scale-110 transition-transform origin-left">
+<span class="material-symbols-outlined text-3xl" data-icon="terminal">terminal</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">HTTP Clients</h3>
+<p class="text-sm text-zinc-500">Use a standard HTTP client with the local Flask endpoints.</p>
+</div>
+<div class="group p-6 bg-zinc-950 border border-zinc-800 rounded hover:border-orange-500/50 transition-all cursor-pointer">
+<div class="mb-4 text-orange-500 group-hover:scale-110 transition-transform origin-left">
+<span class="material-symbols-outlined text-3xl" data-icon="security">security</span>
+</div>
+<h3 class="text-lg font-bold text-white mb-2">Auth &amp; Security</h3>
+<p class="text-sm text-zinc-500">Local demonstration without authentication. Public hosting requires a separate security review.</p>
+</div>
+</div>
+</div>
+<!-- Footer Area -->
+<footer class="mt-auto p-6 border-t border-zinc-900 flex justify-between items-center text-xs text-zinc-600">
+<p>AeroGuard AI · Original dashboard by Team No Signal.</p>
+<div class="flex gap-4">
+<a class="hover:text-zinc-400" href="#">Security Policy</a>
+<a class="hover:text-zinc-400" href="#">System Health</a>
+</div>
+</footer>
+</main>
+</div>
+<script>
+(() => {
+    const DEFAULT_API_BASE = (location.protocol.startsWith('http') ? location.origin : 'http://127.0.0.1:8000');
+
+    function getApiBase() {
+        if (window.AeroPredictUi && typeof window.AeroPredictUi.getApiBase === 'function') {
+            return window.AeroPredictUi.getApiBase();
+        }
+        return DEFAULT_API_BASE;
+    }
+
+    function prettyJson(value) {
+        return JSON.stringify(value, null, 2);
+    }
+
+    function getElements() {
+        const actionRow = document.getElementById('api-demo-action-row');
+        const sendButton = document.getElementById('api-demo-send-btn');
+        return {
+            actionRow,
+            sendButton,
+            requestBlock: document.getElementById('api-demo-request-block'),
+            responseBlock: document.getElementById('api-demo-response-block'),
+            responseTime: document.getElementById('api-demo-response-time'),
+            statusBadge: document.getElementById('api-demo-status-badge'),
+        };
+    }
+
+    function ensureEngineSelect(actionRow, sendButton) {
+        if (!actionRow || !sendButton) return null;
+        let select = actionRow.querySelector('#api-demo-engine-select');
+        if (select) return select;
+
+        select = document.createElement('select');
+        select.id = 'api-demo-engine-select';
+        select.className = 'bg-zinc-950 border border-zinc-700 text-zinc-300 text-xs px-3 py-2 rounded-md outline-none focus:ring-1 focus:ring-orange-500 min-w-[170px]';
+        select.innerHTML = '<option value="">Loading engines...</option>';
+        actionRow.insertBefore(select, sendButton);
+        return select;
+    }
+
+    function setStatus(statusBadge, responseTime, statusCode, elapsedMs) {
+        if (responseTime && Number.isFinite(elapsedMs)) {
+            responseTime.textContent = `Response Time: ${elapsedMs.toFixed(1)}ms`;
+        }
+
+        if (!statusBadge) return;
+        const isOk = statusCode >= 200 && statusCode < 300;
+        statusBadge.textContent = isOk ? `${statusCode} OK` : `${statusCode} ERROR`;
+        statusBadge.className = isOk
+            ? 'text-xs font-bold text-green-500 uppercase tracking-widest'
+            : 'text-xs font-bold text-red-500 uppercase tracking-widest';
+    }
+
+    function flashSendButtonState(button, mode) {
+        if (!button) return;
+
+        const originalHtml = button.dataset.originalHtml || button.innerHTML;
+        if (!button.dataset.originalHtml) {
+            button.dataset.originalHtml = originalHtml;
+        }
+
+        if (mode === 'loading') {
+            button.innerHTML = '<span class="material-symbols-outlined text-sm">autorenew</span> Sending...';
+            button.classList.add('opacity-80');
+            return;
+        }
+
+        button.classList.remove('opacity-80');
+
+        if (mode === 'success') {
+            button.innerHTML = '<span class="material-symbols-outlined text-sm">check_circle</span> Sent';
+            button.classList.remove('bg-orange-500', 'hover:bg-orange-400', 'text-black');
+            button.classList.add('bg-emerald-500', 'text-white');
+            window.setTimeout(() => {
+                button.classList.remove('bg-emerald-500', 'text-white');
+                button.classList.add('bg-orange-500', 'hover:bg-orange-400', 'text-black');
+                button.innerHTML = originalHtml;
+            }, 1400);
+            return;
+        }
+
+        if (mode === 'error') {
+            button.innerHTML = '<span class="material-symbols-outlined text-sm">error</span> Failed';
+            button.classList.remove('bg-orange-500', 'hover:bg-orange-400', 'text-black');
+            button.classList.add('bg-red-600', 'text-white');
+            window.setTimeout(() => {
+                button.classList.remove('bg-red-600', 'text-white');
+                button.classList.add('bg-orange-500', 'hover:bg-orange-400', 'text-black');
+                button.innerHTML = originalHtml;
+            }, 1600);
+        }
+    }
+
+    async function fetchJson(url) {
+        const response = await fetch(url, { headers: { Accept: 'application/json' } });
+        let payload;
+        try {
+            payload = await response.json();
+        } catch {
+            payload = { error: `Non-JSON response from ${url}` };
+        }
+
+        if (!response.ok) {
+            const message = payload && payload.error ? payload.error : `Request failed (${response.status})`;
+            const error = new Error(message);
+            error.status = response.status;
+            error.payload = payload;
+            throw error;
+        }
+
+        return payload;
+    }
+
+    function setRequestPreview(requestBlock, apiBase, engineId) {
+        if (!requestBlock) return;
+        requestBlock.textContent = prettyJson({
+            method: 'GET',
+            url: `${apiBase}/api/sample-prediction?engineId=${engineId}`,
+            headers: { Accept: 'application/json' },
+        });
+    }
+
+    async function loadEngineOptions(select, responseBlock, statusBadge, responseTime) {
+        const apiBase = getApiBase();
+        try {
+            const engineIds = await fetchJson(`${apiBase}/api/engine-ids`);
+            if (!Array.isArray(engineIds) || engineIds.length === 0) {
+                throw new Error('No engine IDs returned by API.');
+            }
+
+            select.innerHTML = engineIds
+                .map((engineId) => `<option value="${engineId}">Engine ${String(engineId).padStart(3, '0')}</option>`)
+                .join('');
+            setStatus(statusBadge, responseTime, 200, 0);
+            return true;
+        } catch (error) {
+            select.innerHTML = '<option value="">No engines available</option>';
+            if (responseBlock) {
+                responseBlock.textContent = prettyJson({
+                    status: 'error',
+                    message: error.message,
+                    hint: 'Verify API server is running and API base URL is correct in Settings.',
+                });
+            }
+            setStatus(statusBadge, responseTime, Number(error.status || 500), 0);
+            return false;
+        }
+    }
+
+    async function sendDemoRequest(elements, select) {
+        const apiBase = getApiBase();
+        const engineId = select.value || select.options[0]?.value;
+        if (!engineId) {
+            throw new Error('Select a valid engine before sending a request.');
+        }
+
+        const { requestBlock, responseBlock, responseTime, statusBadge } = elements;
+        setRequestPreview(requestBlock, apiBase, engineId);
+
+        const started = performance.now();
+        const [summary, prediction] = await Promise.all([
+            fetchJson(`${apiBase}/api/summary`),
+            fetchJson(`${apiBase}/api/sample-prediction?engineId=${engineId}`),
+        ]);
+        const elapsed = performance.now() - started;
+
+        if (responseBlock) {
+            responseBlock.textContent = prettyJson({
+                status: 'success',
+                requestedEngineId: Number(engineId),
+                responseTimeMs: Number(elapsed.toFixed(1)),
+                model: {
+                    dataset: summary.dataset,
+                    testRmse: summary.metrics?.testRmse,
+                    testMae: summary.metrics?.testMae,
+                    bestEpoch: summary.metrics?.bestEpoch,
+                },
+                prediction,
+            });
+        }
+
+        const interval = prediction.predictionInterval;
+        document.getElementById('api-interval-value').textContent = interval
+            ? `${interval.lower.toFixed(1)}–${interval.upper.toFixed(1)} cycles` : 'Unavailable';
+        document.getElementById('api-latency-value').textContent = `${elapsed.toFixed(1)} ms`;
+        document.getElementById('api-measured-latency').textContent = `${elapsed.toFixed(1)} ms`;
+        setStatus(statusBadge, responseTime, 200, elapsed);
+    }
+
+    function initApiDemo() {
+        const elements = getElements();
+        if (!elements.actionRow || !elements.sendButton) return;
+
+        const select = ensureEngineSelect(elements.actionRow, elements.sendButton);
+        if (!select) return;
+
+        let busy = false;
+        const run = async () => {
+            if (busy) return;
+            busy = true;
+            elements.sendButton.disabled = true;
+            elements.sendButton.classList.add('opacity-70', 'cursor-not-allowed');
+            flashSendButtonState(elements.sendButton, 'loading');
+            try {
+                await sendDemoRequest(elements, select);
+                flashSendButtonState(elements.sendButton, 'success');
+                if (window.AeroPredictUi && typeof window.AeroPredictUi.showToast === 'function') {
+                    window.AeroPredictUi.showToast('API request completed successfully.', 'success');
+                }
+            } catch (error) {
+                if (elements.responseBlock) {
+                    elements.responseBlock.textContent = prettyJson({
+                        status: 'error',
+                        message: error.message,
+                    });
+                }
+                setStatus(elements.statusBadge, elements.responseTime, Number(error.status || 500), 0);
+                flashSendButtonState(elements.sendButton, 'error');
+                if (window.AeroPredictUi && typeof window.AeroPredictUi.showToast === 'function') {
+                    window.AeroPredictUi.showToast('API request failed. Check server or settings.', 'danger', true);
+                }
+            } finally {
+                elements.sendButton.disabled = false;
+                elements.sendButton.classList.remove('opacity-70', 'cursor-not-allowed');
+                busy = false;
+            }
+        };
+
+        elements.sendButton.addEventListener('click', run);
+        elements.sendButton.onclick = run;
+        window.runApiDemoRequest = run;
+        window.addEventListener('aeropredict:settings-updated', () => {
+            loadEngineOptions(select, elements.responseBlock, elements.statusBadge, elements.responseTime).then((ok) => {
+                if (ok) run();
+            });
+        });
+
+        loadEngineOptions(select, elements.responseBlock, elements.statusBadge, elements.responseTime).then((ok) => {
+            if (ok) run();
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initApiDemo, { once: true });
+    } else {
+        initApiDemo();
+    }
+})();
+</script>
+</body></html>
